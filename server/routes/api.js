@@ -76,17 +76,11 @@ router.delete('/posts/:postid', [
 
 ///// USERS
 
-// GET login page
-router.get('/log-in', userController.login_get)
-
-// POST request for user log in.
+// POST request for user log in - /api/log-in
 router.post('/log-in', userController.login_post);
 
 // POST request for log out.
 router.post('/log-out', userController.logout_post);
-
-// GET request for user sign up.
-router.get('/sign-up', userController.sign_up_get);
 
 // POST request for user sign up.
 router.post('/sign-up', userController.sign_up_post);
