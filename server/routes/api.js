@@ -7,32 +7,42 @@ const postController = require('../controllers/posts');
 const userController = require('../controllers/users');
 
 
-// COMMENTS
 
-// GET all comments
-router.get('/', commentController.get_comments)
+///// COMMENTS
 
-// POST create comment
-router.post('/', [
+// GET single comment - /api/posts/:postid/comments/:commentid
+router.get('/posts/:postid/comments/:commentid', commentController.get_comment)
+
+// GET all comments - /api/posts/:postid/comments
+router.get('/posts/:postid/comments', commentController.get_comments)
+
+// POST create comment - /api/posts/:postid/comments
+router.post('/posts/:postid/comments', [
   // passport.authenticate('jwt', {session: false}),
   commentController.create_comment
 ])
 
-// PUT edit comment
-router.put('/:commentId', [
+// PUT edit comment - /api/posts/:postid/comments/:commentid
+router.put('/posts/:postid/comments/:commentid', [
   // passport.authenticate('jwt', {session: false}),
   commentController.edit_comment
 ])
 
-// DELETE comment
-router.delete('/:commentId', [
+// DELETE single comment - /api/posts/:postid/comments/:commentid
+router.delete('/posts/:postid/comments/:commentid', [
   // passport.authenticate('jwt', {session: false}),
   commentController.delete_comment
 ])
 
+// DELETE all of single post's comments
+router.delete('/posts/:postid/comments', [
+    // passport.authenticate("jwt", { session: false }),
+    comment_controller.delete_post_comments
+])
 
 
-// POSTS
+
+///// POSTS
 
 // GET all posts
 router.get('/', postController.get_posts)
@@ -63,7 +73,8 @@ router.delete('/:postId', [
 // PUT/POST unpublish post
 
 
-// USERS
+
+///// USERS
 
 // GET login page
 router.get('/log-in', userController.login_get)
