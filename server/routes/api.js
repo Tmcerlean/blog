@@ -77,13 +77,13 @@ router.delete('/posts/:postid', [
 ///// USERS
 
 // POST request for user log in - /api/log-in
-router.post('/log-in', userController.login_post);
+router.post('/login', userController.login_post);
 
 // POST request for log out.
-router.post('/log-out', userController.logout_post);
+router.post('/logout', userController.logout_post);
 
 // POST request for user sign up.
-router.post('/sign-up', userController.sign_up_post);
+router.post('/signup', userController.signup_post);
 
 
 module.exports = router;
