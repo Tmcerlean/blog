@@ -37,7 +37,7 @@ router.delete('/posts/:postid/comments/:commentid', [
 // DELETE all of single post's comments
 router.delete('/posts/:postid/comments', [
     // passport.authenticate("jwt", { session: false }),
-    comment_controller.delete_comments
+    commentController.delete_comments
 ])
 
 
@@ -76,13 +76,13 @@ router.delete('/posts/:postid', [
 
 ///// USERS
 
-// POST request for user log in - /api/log-in
+// POST request for user log in - /api/login
 router.post('/login', userController.login_post);
 
-// POST request for log out.
+// POST request for log out - /api/logout
 router.post('/logout', userController.logout_post);
 
-// POST request for user sign up.
+// POST request for user sign up - /api/signup
 router.post('/signup', userController.signup_post);
 
 
