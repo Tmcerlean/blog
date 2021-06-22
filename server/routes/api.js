@@ -37,7 +37,7 @@ router.delete('/posts/:postid/comments/:commentid', [
 // DELETE all of single post's comments
 router.delete('/posts/:postid/comments', [
     // passport.authenticate("jwt", { session: false }),
-    comment_controller.delete_post_comments
+    comment_controller.delete_comments
 ])
 
 
