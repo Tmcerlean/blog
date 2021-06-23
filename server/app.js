@@ -10,9 +10,11 @@ const app = express();
 
 const apiRouter = require("./routes/api");
 
+require("dotenv").config();
+
 //Set up mongoose connection
 const mongoose = require('mongoose');
-const mongoDB = 'mongodb+srv://dbUser:thisismynewpassword@cluster0.aqthk.mongodb.net/new_blog?retryWrites=true&w=majority';
+const mongoDB = process.env.DB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
@@ -25,7 +27,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session({ secret: "cats" }));
+app.use(session({ secret: process.env.SESSIONS_SECRET, }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
