@@ -4,6 +4,7 @@ const path = require('path');
 const passport = require("passport");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const session = require("express-session"),
 
 const app = express();
 
@@ -24,7 +25,7 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.session({ secret: 'keyboard cat' }));
+app.use(session({ secret: "cats" }));
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(express.static(path.join(__dirname, 'public')));
