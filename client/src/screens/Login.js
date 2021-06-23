@@ -35,12 +35,14 @@ const Login = () => {
                     <form className="flex flex-wrap justify-center">
                         <input 
                             className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none" 
+                            name="username"
                             placeholder="Username"
                             value={username}
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
                             className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none" 
+                            name="password"
                             placeholder="Password"
                             type="password"
                             value={password}
