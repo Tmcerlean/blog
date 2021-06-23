@@ -9,6 +9,8 @@ const cors = require('cors');
 
 const app = express();
 
+require('./passport');
+
 const apiRouter = require("./routes/api");
 
 require("dotenv").config();
