@@ -1,21 +1,32 @@
+import { useEffect } from 'react';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom";
 
-function App() {
+const user = 'test';
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      {!user ? (
+        <Login />
+      ) : (
+      <Main>
+        <Sidebar />
+        <Switch>
+          <Route path="/" exact>
+            {currentChannel ? (
+              <Chat />
+            ) : (
+              <NoChat />
+            )}
+          </Route>
+        </Switch>
+      </Main>
+      )}
+    </Router>
   );
 }
 
