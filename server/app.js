@@ -4,7 +4,8 @@ const path = require('path');
 const passport = require("passport");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const session = require("express-session"),
+const session = require("express-session");
+var cors = require('cors');
 
 const app = express();
 
@@ -18,6 +19,9 @@ const mongoDB = process.env.DB_URL;
 mongoose.connect(mongoDB, { useNewUrlParser: true , useUnifiedTopology: true});
 const db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+
+// CORS setup
+app.options('*', cors()) // include before other routes
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
