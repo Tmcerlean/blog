@@ -22,7 +22,11 @@ const Login = () => {
     return (
         <div>
             <Header />
-            Login
+            <div className="flex h-screen bg-gray-100">
+                <div className="container m-auto w-1/4 align-middle bg-gray-300">
+                    <p>Blog</p>
+                </div>
+            </div>
         </div>
     )
 
