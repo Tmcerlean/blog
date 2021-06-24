@@ -50,7 +50,7 @@ const Signup = () => {
                         />
                         <input 
                             className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none"
-                            name="passwordConfirmation"
+                            name="password-confirmation"
                             placeholder="Confirm Password"
                             type="password"
                             value={passwordConfirmation}

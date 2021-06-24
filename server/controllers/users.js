@@ -34,29 +34,28 @@ exports.signup_post = [
 
     // Validate and sanitize fields
     body('username').trim().isLength({ min: 1 }).escape().withMessage('Username must be specified')
-    .isAlphanumeric().withMessage('Username has non-alphanumeric characters')
-    .custom(async (username) => {
-        try {
-          const existingUsername = await User.findOne({ username: username });
-          if (existingUsername) {
-            throw new Error("Username already in use");
-          }
-        } catch (err) {
-          throw new Error(err);
-        }
-    }),
+    .isAlphanumeric().withMessage('Username has non-alphanumeric characters'),
     body("password").isLength({ min: 6 }).withMessage("Password must contain at least 6 characters"),
+    body("password-confirmation").custom((value, { req }) => {
+        if (value !== req.body.password) {
+            return next("Password confirmation does not match password");
+        }
+        // Indicates the success of this synchronous custom validator
+        return true;
+    }),
 
     // Process request after validation and sanitization.
-    (req, res, next) => {
+    async (req, res, next) => {
 
         // Extract the validation errors from a request.
         const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            // There are errors. Render form again with sanitized values/errors messages.
-            res.render('author_form', { title: 'Create Author', author: req.body, errors: errors.array() });
-            return;
+            // There are errors in the form data.
+            return res.json({
+                username: req.body.username,
+                errors: errors.array(),
+            });
         }
         else {
             // Data from form is valid.
@@ -70,7 +69,10 @@ exports.signup_post = [
             user.save(function (err) {
                 if (err) { return next(err); }
                 // Successful - display message
-                res.json(user.url);
+                res.json({
+                    message: "Signed up successfully",
+                    user: req.user,
+                });
             });
         }
     }
