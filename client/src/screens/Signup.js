@@ -8,11 +8,13 @@ const Signup = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [passwordConfirmation, setPasswordConfirmation] = useState('');
     const [error, setError] = useState('');
     
     const isUsernameValid = username.length > 0;
     const isPasswordValid = (password !== '' && password.length > 5);
-    const isSignupValid = isUsernameValid && isPasswordValid;
+    const isPasswordConfirmationValid = (password === passwordConfirmation);
+    const isSignupValid = isUsernameValid && isPasswordValid && isPasswordConfirmationValid;
 
     useEffect(() => {
         document.title = 'Signup';
@@ -39,11 +41,19 @@ const Signup = () => {
                             onChange={(e) => setUsername(e.target.value)}
                         />
                         <input 
-                            className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none"
+                            className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none"
                             name="password"
                             placeholder="Password"
                             type="password"
                             value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                        />
+                        <input 
+                            className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none"
+                            name="passwordConfirmation"
+                            placeholder="Confirm Password"
+                            type="password"
+                            value={passwordConfirmation}
                             onChange={(e) => setPassword(e.target.value)}
                         />
                         <button 
