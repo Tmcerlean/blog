@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import * as ROUTES from '../constants/routes';
@@ -11,7 +11,7 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     
-    const isUsernameValid = (username !== '' && username.length > 2);
+    const isUsernameValid = username.length > 0;
     const isPasswordValid = (password !== '' && password.length > 5);
     const isLoginValid = isUsernameValid && isPasswordValid;
 
@@ -19,7 +19,7 @@ const Login = () => {
         document.title = 'Login';
     }, []);
 
-    const signIn = (e) => {
+    const signIn = async (e) => {
 
         e.preventDefault();
 
@@ -28,7 +28,6 @@ const Login = () => {
 
     return (
         <div className="bg-gray-100">
-            <Header />
             <div className="container h-screen mx-auto flex flex-col flex-wrap">
                 <div className="container border rounded m-auto w-1/4 flex flex-wrap justify-center bg-white shadow-new">
                     <h1 className="text-3xl m-4">Blog.</h1>
