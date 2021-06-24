@@ -54,7 +54,7 @@ const Signup = () => {
                             placeholder="Confirm Password"
                             type="password"
                             value={passwordConfirmation}
-                            onChange={(e) => setPassword(e.target.value)}
+                            onChange={(e) => setPasswordConfirmation(e.target.value)}
                         />
                         <button 
                             className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isSignupValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
