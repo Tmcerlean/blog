@@ -6,7 +6,6 @@ const ExtractJWT = passportJWT.ExtractJwt;
 
 // Passport auth
 passport.use(
-    "login",
     new localStrategy(
       {
         usernameField: "username",
@@ -28,13 +27,14 @@ passport.use(
   
           return done(null, user, { message: "Logged in Successfully" });
         } catch (error) {
-          return done(error);
+            return done(error);
         }
       }
     )
 );
 
 
+// NEED TO MOVE SECRET KEY TO DOTENV FILE
 passport.use(new JWTStrategy({
     jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey : 'your_jwt_secret'
