@@ -7,39 +7,54 @@ const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require("bcryptjs");
 
 // Passport login auth
-passport.use(
-    "login",
-    new LocalStrategy(
-      {
-        usernameField: "username",
-        passwordField: "password",
-      },
-      async (username, password, done) => {
-        try {
-          const user = await User.findOne({ username });
+// passport.use(
+//     "login",
+//     new LocalStrategy(
+//       {
+//         usernameField: "username",
+//         passwordField: "password",
+//       },
+//       async (username, password, done) => {
+//         try {
+//           const user = await User.findOne({ username });
   
-          if (!user) {
-            return done(null, false, { message: "User not found" });
-          }
+//           if (!user) {
+//             return done(null, false, { message: "User not found" });
+//           }
 
-          bcrypt.compare(password, user.password, (err, res) => {
-            if (res) {
-              // Passwords match! log user in
-              return done(null, user)
-            } else {
-              // Passwords do not match!
-              return done(null, false, { message: "Incorrect password" })
-            }
-          }) 
+//           bcrypt.compare(password, user.password, (err, res) => {
+//             if (res) {
+//               // Passwords match! log user in
+//               return done(null, user)
+//             } else {
+//               // Passwords do not match!
+//               return done(null, false, { message: "Incorrect password" })
+//             }
+//           }) 
           
-          return done(null, user, { message: "Logged in Successfully" });
-        }
+//           return done(null, user, { message: "Logged in Successfully" });
+//         }
         
-        catch (error) {
-          return done(error);
-        }
-      }
-    )
+//         catch (error) {
+//           return done(error);
+//         }
+//       }
+//     )
+// );
+
+passport.use(
+  new LocalStrategy((username, password, done) => {
+      User.findOne({ username }, (err, user) => {
+          if (err) return done(err);
+          if (!user) return done(null, false, { msg: 'Incorrect data:' });
+          bcrypt.compare(password, user.password, (error, res) => {
+              if (res) {
+                  return done(null, user);
+              }
+              return done(null, false, { msg: 'Incorrect data' });
+          });
+      });
+  })
 );
 
 

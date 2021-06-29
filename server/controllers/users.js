@@ -4,28 +4,26 @@ const jwt = require("jsonwebtoken");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
-exports.login_post = async (req, res, next) => {
-    passport.authenticate('local', {session: false}, async (err, user, info) => {
+exports.login_post = (req, res, next) => {
+    passport.authenticate('local', { session: false }, (err, user, info) => {
         if (err || !user) {
-            return res.status(400).json({
-                message: 'Something is not right',
-                user : user
+            return res.status(400).json({ 
+                message: 'Something went wrong',
+                user 
             });
         }
+        req.login(user, { session: false }, (error) => {
+            if (error) res.send(error);
 
-        req.login(user, {session: false}, async (err) => {
-            if (err) {
-                res.send(err);
-            }
-
-        // Generate a signed json web token with the contents of user object and return it in the response
-
-        const token = jwt.sign(user, 'your_jwt_secret');
-            return res.json({user, token});
+            // Generate a signed json web token with the contents of user object and return it in the response
+            const token = jwt.sign({ user }, process.env.JWT_SECRET, {
+                expiresIn: '1d',
+            });
+            let data = { _id: user._id, username: user.username};
+            return res.json({ user: data, token });
         });
-
     })(req, res);
-};
+}
 
 exports.logout_post = function(req, res, next) {
     return res.json('Received a POST HTTP method');
