@@ -2,18 +2,18 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
-const ProtectedRoute = ({ user, children, ...rest }) => {
+const ProtectedRoute = ({ userAuth, children, ...rest }) => {
 
     return (
         <Route
             {...rest}
             render={({ location }) => {
-                if (user && user.user !== null) {
+                if (userAuth && userAuth !== null) {
                     // Using cloneElement to add / modify the props of its children.
-                    return React.cloneElement(children, { user });
+                    return React.cloneElement(children, { userAuth });
                 }
                 
-                if (!user || user.user === null) {
+                if (!userAuth || userAuth === null) {
                     return (
                         <Redirect
                             to={{

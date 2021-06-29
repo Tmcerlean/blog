@@ -1,11 +1,10 @@
-import { lazy, Suspense } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
 import * as ROUTES from './constants/routes';
-import UserContext from './context/user';
 import ProtectedRoute from './helpers/ProtectedRoute';
 
 const Home = lazy(() => import('./screens/Home'));
@@ -15,24 +14,30 @@ const Signup = lazy(() => import('./screens/Signup'));
 
 const App = () => {
 
-  // AMEND THIS!!!
-  const user = 'test';
+  const [userAuth, setUserAuth] = useState(false);
+
+  useEffect(() => {
+    const user = localStorage.getItem("userAuth");
+    if (user) {
+      setUserAuth(true);
+    } else {
+      setUserAuth(false);
+    }
+  }, []);
 
   return (
-    <UserContext.Provider value={user}>
-      <Router>
-        <Suspense fallback={<p>Loading ...</p>}>
-          <Switch>
-            <Route path={ROUTES.LOGIN} component={Login} />
-            <Route path={ROUTES.SIGNUP} component={Signup} />
-            <ProtectedRoute user={user} path={ROUTES.HOME} exact>
-              <Home />
-            </ProtectedRoute>
-            <Route component={NotFound} />
-          </Switch>
-        </Suspense>
-      </Router>
-    </UserContext.Provider>
+    <Router>
+      <Suspense fallback={<p>Loading ...</p>}>
+        <Switch>
+          <Route userAuth={userAuth} path={ROUTES.LOGIN} component={Login} />
+          <Route userAuth={userAuth} path={ROUTES.SIGNUP} component={Signup} />
+          <ProtectedRoute userAuth={userAuth} path={ROUTES.HOME} exact>
+            <Home />
+          </ProtectedRoute>
+          <Route component={NotFound} />
+        </Switch>
+      </Suspense>
+    </Router>
   );
 }
 

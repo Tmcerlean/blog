@@ -2,14 +2,14 @@ import { useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
-const Signup = () => {
+const Signup = ({setUserAuth}) => {
 
     const history = useHistory();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConfirmation, setPasswordConfirmation] = useState('');
-    const [error, setError] = useState('');
+    const [signupErr, setSignupErr] = useState(false);
     
     const isUsernameValid = username.length > 0;
     const isPasswordValid = (password !== '' && password.length > 5);
@@ -20,11 +20,34 @@ const Signup = () => {
         document.title = 'Signup';
     }, []);
 
-    const signUp = async (e) => {
+    const signUp = async (e, data) => {
 
-        e.preventDefault();
+        e.preventDefault()
 
-        // Do something
+        const formData = JSON.stringify(data);
+        try {
+          const req = await fetch(
+            "http://localhost:3000/api/signup",
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const myJson = await req.json();
+          if (req.status !== 200) {
+            setSignupErr(true);
+            return;
+          }
+          localStorage.setItem("token", myJson.token);
+          localStorage.setItem("userAuth", true);
+          setUserAuth(true);
+        } catch (err) {
+          setSignupErr(true);
+        }
     }
 
     return (
@@ -58,17 +81,19 @@ const Signup = () => {
                         />
                         <button 
                             className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isSignupValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
-                            onClick={signUp}
+                            type="submit"
+                            onClick={(e) => signUp(e)}
                         >Register</button>
                         <div className="mb-4">
                             <p>Have an account? <Link to={ROUTES.LOGIN} className="font-medium text-blue-500 cursor-pointer">Log in</Link></p>
                         </div>
-                        {error.length > 0 && <p className="text-xs text-red-600">{error}</p>}
+                        {signupErr && <p className="text-xs text-red-600">Error with signup information</p>}
                     </form>
                 </div>
             </div>
         </div>
     )
+
 }
 
 export default Signup;

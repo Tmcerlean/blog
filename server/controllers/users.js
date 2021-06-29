@@ -2,6 +2,7 @@ const { body, validationResult } = require('express-validator');
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
 const passport = require("passport");
+const bcrypt = require("bcryptjs");
 
 exports.login_post = async (req, res, next) => {
     passport.authenticate('local', {session: false}, async (err, user, info) => {
@@ -60,20 +61,40 @@ exports.signup_post = [
         else {
             // Data from form is valid.
 
-            // Create a User object with escaped and trimmed data.
-            var user = new User(
-                {
-                    username: req.body.username,
-                    password: req.body.password
-                });
-            user.save(function (err) {
-                if (err) { return next(err); }
-                // Successful - display message
-                res.json({
-                    message: "Signed up successfully",
-                    user: req.user,
-                });
-            });
+            // Check if username already exists.
+            await User.findOne({ 'username': req.body.username })
+                .exec(function(err, found_username) {
+
+                    if (found_username) {
+                        return next(err);
+                    } 
+
+                    else if (err) { return next(err); }
+                    
+                    else {
+                        // Create a user object with escaped and trimmed data
+                        bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
+                            // If err, do something
+                            if (err) { 
+                                return next(err);
+                            };
+                            // Otherwise, store hashedPassword in DB
+                            const user = new User({
+                                username: req.body.username,
+                                password: hashedPassword,
+                                admin: false,
+                            }).save(err => {
+                                if (err) { 
+                                    return next(err);
+                                };
+                                res.json({
+                                    message: "Signed up successfully",
+                                    user: req.user,
+                                });
+                            });
+                        });
+                    }
+            })
         }
     }
 ];

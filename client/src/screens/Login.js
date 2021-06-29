@@ -3,7 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import Header from '../components/Header';
 import * as ROUTES from '../constants/routes';
 
-const Login = () => {
+const Login = ({setUserAuth}) => {
 
     const history = useHistory();
 

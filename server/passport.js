@@ -1,12 +1,14 @@
-const LocalStrategy = require("passport-local").Strategy;
-const User = require("../models/user");
+const passport = require("passport");
+const User = require("./models/user");
 const passportJWT = require("passport-jwt");
+const LocalStrategy = require("passport-local").Strategy;
 const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require("bcryptjs");
 
-// Passport auth
+// Passport login auth
 passport.use(
+    "login",
     new LocalStrategy(
       {
         usernameField: "username",
@@ -22,10 +24,10 @@ passport.use(
 
           bcrypt.compare(password, user.password, (err, res) => {
             if (res) {
-              // passwords match! log user in
+              // Passwords match! log user in
               return done(null, user)
             } else {
-              // passwords do not match!
+              // Passwords do not match!
               return done(null, false, { message: "Incorrect password" })
             }
           }) 
@@ -40,6 +42,47 @@ passport.use(
     )
 );
 
+
+// Passport signup auth
+passport.use(
+  "signup",
+  new LocalStrategy(
+    {
+      usernameField: "username",
+      passwordField: "password",
+    },
+    async (username, password, done) => {
+      try {
+        const user = await User.create({ username, password });
+
+        return done(null, user);
+      } catch (error) {
+        done(error);
+      }
+    }
+  )
+);
+
+
+// NEED TO MOVE SECRET KEY TO DOTENV FILE
+passport.use(new JWTStrategy({
+  jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
+  secretOrKey : 'your_jwt_secret'
+},
+function (jwtPayload, cb) {
+
+  //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
+  return UserModel.findOneById(jwtPayload.id)
+      .then(user => {
+          return cb(null, user);
+      })
+      .catch(err => {
+          return cb(err);
+      });
+}
+));
+
+
 passport.serializeUser(function(user, done) {
   done(null, user.id);
 });
@@ -51,20 +94,3 @@ passport.deserializeUser(function(id, done) {
 });
 
 
-// NEED TO MOVE SECRET KEY TO DOTENV FILE
-passport.use(new JWTStrategy({
-    jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-    secretOrKey : 'your_jwt_secret'
-},
-function (jwtPayload, cb) {
-
-    //find the user in db if needed. This functionality may be omitted if you store everything you'll need in JWT payload.
-    return UserModel.findOneById(jwtPayload.id)
-        .then(user => {
-            return cb(null, user);
-        })
-        .catch(err => {
-            return cb(err);
-        });
-}
-));
