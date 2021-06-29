@@ -9,7 +9,7 @@ const Login = ({setUserAuth}) => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState('');
+    const [loginErr, setLoginErr] = useState(false);
     
     const isUsernameValid = username.length > 0;
     const isPasswordValid = (password !== '' && password.length > 5);
@@ -19,11 +19,43 @@ const Login = ({setUserAuth}) => {
         document.title = 'Login';
     }, []);
 
-    const signIn = async (e) => {
+    const logIn = async (e, username, password) => {
 
         e.preventDefault();
 
-        // Do something
+        console.log(e, username, password)
+
+        const data = {username, password}
+
+        const formData = JSON.stringify(data);
+
+        console.log(formData);
+        try {
+          const req = await fetch(
+            "http://localhost:3000/api/login",
+            {
+              method: "POST",
+              body: formData,
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+            }
+          );
+          const myJson = await req.json();
+          if (req.status !== 200) {
+            setLoginErr(true);
+            return;
+          }
+
+          console.log(myJson);
+
+          localStorage.setItem("token", myJson.token);
+          localStorage.setItem("userAuth", true);
+          setUserAuth(true);
+        } catch (err) {
+          setLoginErr(true);
+        }
     }
 
     return (
@@ -31,7 +63,7 @@ const Login = ({setUserAuth}) => {
             <div className="container h-screen mx-auto flex flex-col flex-wrap">
                 <div className="container border rounded m-auto w-1/4 flex flex-wrap justify-center bg-white shadow-new">
                     <h1 className="text-3xl m-4">Blog.</h1>
-                    <form className="flex flex-wrap justify-center">
+                    <form className="flex flex-wrap justify-center" onSubmit={(e) => logIn(e, username, password)}>
                         <input 
                             className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none" 
                             name="username"
@@ -49,12 +81,12 @@ const Login = ({setUserAuth}) => {
                         />
                         <button 
                             className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isLoginValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
-                            onClick={signIn}
+                            type="submit"
                         >Log In</button>
                         <div className="mb-4">
                             <p>Don't have an account? <Link to={ROUTES.SIGNUP} className="font-medium text-blue-500 cursor-pointer">Sign up</Link></p>
                         </div>
-                        {error.length > 0 && <p className="text-xs text-red-600">{error}</p>}
+                        {loginErr && <p className="text-xs text-red-600">Error with login information</p>}
                     </form>
                 </div>
             </div>    

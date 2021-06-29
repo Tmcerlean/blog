@@ -20,11 +20,18 @@ const Signup = ({setUserAuth}) => {
         document.title = 'Signup';
     }, []);
 
-    const signUp = async (e, data) => {
 
-        e.preventDefault()
+    const signUp = async (e, username, password) => {
+
+        e.preventDefault();
+
+        console.log(e, username, password)
+
+        const data = {username, password}
 
         const formData = JSON.stringify(data);
+
+        console.log(formData);
         try {
           const req = await fetch(
             "http://localhost:3000/api/signup",
@@ -42,6 +49,9 @@ const Signup = ({setUserAuth}) => {
             setSignupErr(true);
             return;
           }
+
+          console.log(myJson);
+
           localStorage.setItem("token", myJson.token);
           localStorage.setItem("userAuth", true);
           setUserAuth(true);
@@ -55,7 +65,7 @@ const Signup = ({setUserAuth}) => {
             <div className="container mx-auto flex flex-col flex-wrap h-screen">
                 <div className="container border rounded m-auto w-1/4 flex flex-wrap justify-center bg-white shadow-new">
                     <h1 className="text-3xl m-4">Blog.</h1>
-                    <form className="flex flex-wrap justify-center">
+                    <form className="flex flex-wrap justify-center" onSubmit={(e) => signUp(e, username, password)}>
                         <input 
                             className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none"
                             name="username"
@@ -82,7 +92,6 @@ const Signup = ({setUserAuth}) => {
                         <button 
                             className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isSignupValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
                             type="submit"
-                            onClick={(e) => signUp(e)}
                         >Register</button>
                         <div className="mb-4">
                             <p>Have an account? <Link to={ROUTES.LOGIN} className="font-medium text-blue-500 cursor-pointer">Log in</Link></p>

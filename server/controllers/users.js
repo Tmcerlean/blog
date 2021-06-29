@@ -35,13 +35,6 @@ exports.signup_post = [
     body('username').trim().isLength({ min: 1 }).escape().withMessage('Username must be specified')
     .isAlphanumeric().withMessage('Username has non-alphanumeric characters'),
     body("password").isLength({ min: 6 }).withMessage("Password must contain at least 6 characters"),
-    body("password-confirmation").custom((value, { req }) => {
-        if (value !== req.body.password) {
-            return next("Password confirmation does not match password");
-        }
-        // Indicates the success of this synchronous custom validator
-        return true;
-    }),
 
     // Process request after validation and sanitization.
     async (req, res, next) => {
