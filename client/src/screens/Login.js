@@ -23,13 +23,9 @@ const Login = ({setUserAuth}) => {
 
         e.preventDefault();
 
-        console.log(e, username, password)
-
         const data = {username, password}
-
         const formData = JSON.stringify(data);
 
-        console.log(formData);
         try {
           const req = await fetch(
             "http://localhost:3000/api/login",
@@ -47,9 +43,6 @@ const Login = ({setUserAuth}) => {
             setLoginErr(true);
             return;
           }
-
-          console.log(myJson);
-
           localStorage.setItem("token", myJson.token);
           localStorage.setItem("userAuth", true);
           setUserAuth(true);
