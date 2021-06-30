@@ -15,25 +15,19 @@ const Signup = lazy(() => import('./screens/Signup'));
 
 const App = () => {
 
-  const [userAuth, setUserAuth] = useState(false);
-
-  useEffect(() => {   
+  const [userAuth, setUserAuth] = useState(() => {
     const user = localStorage.getItem("userAuth");
-    if (user) {
-      setUserAuth(true);
-    } else {
-      setUserAuth(false);
-    }
-  }, [userAuth]);
+    return !!user;
+  });
 
   return (
     <Router>
       <Suspense fallback={<p>Loading ...</p>}>
         <Switch>
-          <Route path={ROUTES.HOME} component={Home} exact={true} />
-          <Route userAuth={userAuth} path={ROUTES.LOGIN} component={Login} />
-          <Route userAuth={userAuth} path={ROUTES.SIGNUP} component={Signup} />
-          <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN} exact>
+          <Route path={ROUTES.HOME} component={Home} exact />
+          <Route userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.LOGIN} component={Login} exact />
+          <Route userAuth={userAuth} path={ROUTES.SIGNUP} component={Signup} exact />
+          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN} exact>
             <Admin />
           </ProtectedRoute>
           <Route component={NotFound} />
