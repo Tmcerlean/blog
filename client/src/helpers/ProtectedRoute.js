@@ -9,11 +9,15 @@ const ProtectedRoute = ({ userAuth, children, ...rest }) => {
             {...rest}
             render={({ location }) => {
                 if (userAuth && userAuth !== null) {
+                    console.log(userAuth)
+                    console.log("FIRST")
                     // Using cloneElement to add / modify the props of its children.
                     return React.cloneElement(children, { userAuth });
                 }
                 
                 if (!userAuth || userAuth === null) {
+                    console.log(userAuth)
+                    console.log("SECOND")
                     return (
                         <Redirect
                             to={{
