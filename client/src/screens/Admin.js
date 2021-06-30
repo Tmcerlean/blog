@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const Admin = () => {
 
     useEffect(() => {
-        document.title = 'Blog Homepage';
+        document.title = 'Admin Page';
     }, []);
 
     return (
