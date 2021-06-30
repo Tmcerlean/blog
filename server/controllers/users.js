@@ -78,7 +78,7 @@ exports.signup_post = [
                                 if (err) { 
                                     return next(err);
                                 };
-                                res.json({
+                                res.status(200).json({
                                     message: "Signed up successfully",
                                     user: req.user,
                                 });
