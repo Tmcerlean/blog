@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import Header from '../components/Header';
 
 const Admin = () => {
 
@@ -9,7 +8,6 @@ const Admin = () => {
 
     return (
         <div>
-            <Header />
             <p>Admin</p>
         </div>
     )

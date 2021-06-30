@@ -1,11 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import Header from '../components/Header';
+import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
 const Login = ({setUserAuth}) => {
-
-    const history = useHistory();
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');

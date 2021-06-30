@@ -1,9 +1,10 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useState } from 'react';
 import {
   BrowserRouter as Router,
   Switch,
   Route
 } from "react-router-dom";
+import Header from "./components/Header";
 import * as ROUTES from './constants/routes';
 import ProtectedRoute from './helpers/ProtectedRoute';
 
@@ -23,6 +24,7 @@ const App = () => {
   return (
     <Router>
       <Suspense fallback={<p>Loading ...</p>}>
+        <Header userAuth={userAuth} setUserAuth={setUserAuth} />
         <Switch>
           <Route path={ROUTES.HOME} component={Home} exact />
           <Route userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.LOGIN} component={Login} exact />

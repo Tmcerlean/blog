@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
 const Signup = ({setUserAuth}) => {

@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import Header from '../components/Header';
 
 const NotFound = () => {
 
@@ -9,7 +8,6 @@ const NotFound = () => {
 
     return (
         <div>
-            <Header />
             <div className="">
                 <p className="">
                     Not Found!
