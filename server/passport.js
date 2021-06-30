@@ -6,42 +6,8 @@ const JWTStrategy = passportJWT.Strategy;
 const ExtractJWT = passportJWT.ExtractJwt;
 const bcrypt = require("bcryptjs");
 
+
 // Passport login auth
-// passport.use(
-//     "login",
-//     new LocalStrategy(
-//       {
-//         usernameField: "username",
-//         passwordField: "password",
-//       },
-//       async (username, password, done) => {
-//         try {
-//           const user = await User.findOne({ username });
-  
-//           if (!user) {
-//             return done(null, false, { message: "User not found" });
-//           }
-
-//           bcrypt.compare(password, user.password, (err, res) => {
-//             if (res) {
-//               // Passwords match! log user in
-//               return done(null, user)
-//             } else {
-//               // Passwords do not match!
-//               return done(null, false, { message: "Incorrect password" })
-//             }
-//           }) 
-          
-//           return done(null, user, { message: "Logged in Successfully" });
-//         }
-        
-//         catch (error) {
-//           return done(error);
-//         }
-//       }
-//     )
-// );
-
 passport.use(
   new LocalStrategy((username, password, done) => {
       User.findOne({ username }, (err, user) => {
@@ -79,10 +45,10 @@ passport.use(
 );
 
 
-// NEED TO MOVE SECRET KEY TO DOTENV FILE
+// Passport JWT auth
 passport.use(new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey : 'your_jwt_secret'
+  secretOrKey : process.env.JWT_SECRET
 },
 function (jwtPayload, cb) {
 

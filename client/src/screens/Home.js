@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import Header from '../components/Header';
 
-const Home = ({ user: loggedInUser }) => {
+const Home = () => {
 
     useEffect(() => {
         document.title = 'Blog Homepage';
@@ -10,7 +10,7 @@ const Home = ({ user: loggedInUser }) => {
     return (
         <div>
             <Header />
-            <p>Test</p>
+            <p>Home</p>
         </div>
     )
 }

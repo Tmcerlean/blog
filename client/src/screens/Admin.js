@@ -10,7 +10,7 @@ const Admin = () => {
     return (
         <div>
             <Header />
-            <p>Test</p>
+            <p>Admin</p>
         </div>
     )
 }

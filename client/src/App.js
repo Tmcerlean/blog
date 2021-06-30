@@ -17,7 +17,7 @@ const App = () => {
 
   const [userAuth, setUserAuth] = useState(false);
 
-  useEffect(() => {
+  useEffect(() => {   
     const user = localStorage.getItem("userAuth");
     if (user) {
       setUserAuth(true);
