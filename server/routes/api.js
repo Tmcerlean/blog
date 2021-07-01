@@ -52,7 +52,7 @@ router.get('/posts', postController.get_posts)
 
 // POST create post - /api/posts
 router.post('/posts', [
-  passport.authenticate('jwt', {session: false}),
+  // passport.authenticate('jwt', {session: false}),
   postController.create_post
 ])
 

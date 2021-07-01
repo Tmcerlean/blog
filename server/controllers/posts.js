@@ -37,7 +37,7 @@ exports.create_post = [
             title,
             body,
         });
-        Post.save((err) => {
+        post.save((err) => {
             if (err) {
                 return next(err);
             }

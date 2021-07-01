@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
 const session = require('express-session')
+require("dotenv").config();
 const passport = require("passport");
 
 const app = express();
@@ -12,8 +13,6 @@ const app = express();
 require('./passport');
 
 const apiRouter = require("./routes/api");
-
-require("dotenv").config();
 
 //Set up mongoose connection
 const mongoose = require('mongoose');
