@@ -5,14 +5,27 @@ const Post = ({ content }) => {
 
   let match = useRouteMatch();
 
+  const date = new Date(content.timestamp);
+  const date_formatted = date.toLocaleDateString("en-gb", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
+  });
+
   return (
     <div>
         {content && <div>
-            <h2>{content?.title}</h2>
-            <button>
-                <Link to={`${match.url}/${content._id}`}>Edit Post</Link>
-            </button>
-            <p>{content.body}</p>
+            <div class="max-w-md w-full py-4 px-8 bg-white shadow-lg rounded-lg my-20">
+                <h2 class="text-gray-800 text-3xl font-semibold">{content.title}</h2>
+                <div class="flex mt-4 items-center justify-between">
+                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-8 rounded focus:outline-none focus:shadow-outline" type="submit">
+                        <Link to={`${match.url}/${content._id}`}>Edit Post</Link>
+                    </button>
+                    <a href="#" class="text-base font-medium text-blue-700">{date_formatted}</a>
+                </div>
+            </div>
         </div>}
     </div>
   );

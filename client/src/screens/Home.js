@@ -33,7 +33,7 @@ const Home = () => {
     }, [posts])
 
     return (
-        <div className="grid-cols-2 text-center w-screen">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-center justify-items-center w-screen">
             {!posts ? (
                 <Skeleton count={8} width={300} height={300} className="m-5" />
             ) : (

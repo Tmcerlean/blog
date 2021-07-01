@@ -12,7 +12,7 @@ var PostSchema = new Schema(
 );
 
 PostSchema.virtual("date_formated").get(function () {
-  return this.date.toLocaleDateString("en-gb", {
+  return this.timestamp.toLocaleDateString("en-gb", {
     year: "numeric",
     month: "short",
     day: "numeric",
