@@ -5,9 +5,17 @@ exports.get_post = function(req, res, next) {
     return res.json('Received a GET HTTP method');
 }
 
-exports.get_posts = function(req, res, next) {
-    return res.json('Received a GET HTTP method');
-}
+exports.get_posts = async function (req, res, next) {
+    try {
+        const posts = await Post.find({});
+        if (!posts) {
+            return res.status(400).json({ message: "Posts could not be fetched" });
+        }
+        res.status(200).json({ posts });
+    } catch (err) {
+        next(err);
+    }
+};
 
 exports.create_post = [
 
