@@ -44,26 +44,26 @@ router.delete('/posts/:postid/comments', [
 
 ///// POSTS
 
-// GET single post - /api/posts/:postid
-router.get('/posts/:postid', postController.get_post)
+// GET single post - /api/posts/:id
+router.get('/posts/:id', postController.get_post)
 
 // GET all posts - /api/posts
 router.get('/posts', postController.get_posts)
 
 // POST create post - /api/posts
 router.post('/posts', [
-  // passport.authenticate('jwt', {session: false}),
+  passport.authenticate('jwt', {session: false}),
   postController.create_post
 ])
 
-// PUT edit post - /api/posts/:postid
-router.put('/posts/:postid', [
-  passport.authenticate('jwt', {session: false}),
+// PUT edit post - /api/posts/:id
+router.put('/posts/:id', [
+  // passport.authenticate('jwt', {session: false}),
   postController.edit_post
 ])
 
-// DELETE post - /api/posts/:postid
-router.delete('/posts/:postid', [
+// DELETE post - /api/posts/:id
+router.delete('/posts/:id', [
   passport.authenticate('jwt', {session: false}),
   postController.delete_post
 ])

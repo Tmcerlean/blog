@@ -73,7 +73,7 @@ const Admin = () => {
                             type="text" 
                             placeholder="Content"
                             value={body}
-                            onChange={(e) => setBody(e.target.value)}                         />
+                            onChange={(e) => setBody(e.target.value)} />
                     </div>
                 </div>
                 <div className="flex items-center justify-between">

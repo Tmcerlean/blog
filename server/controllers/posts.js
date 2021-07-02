@@ -1,9 +1,19 @@
 const { body, validationResult } = require('express-validator');
 const Post = require("../models/post");
 
-exports.get_post = function(req, res, next) {
-    return res.json('Received a GET HTTP method');
-}
+exports.get_post = async function (req, res, next) {
+    try {
+        const post = await Post.findById(req.params.id);
+        if (!post) {
+            return res
+                .status(404)
+                .json({ err: `Post with id ${req.params.id} does not exist` });
+            }
+            res.status(200).json({ post });
+    } catch (err) {
+        next(err);
+    }
+};
 
 exports.get_posts = async function (req, res, next) {
     try {
@@ -56,9 +66,23 @@ exports.create_post = [
     },
 ];
 
-exports.edit_post = function(req, res, next) {
-    return res.json('Received a PUT HTTP method');
-}
+exports.edit_post = async function (req, res, next) {
+    try {
+        const { title, body } = req.body;
+        const post = await Post.findByIdAndUpdate(req.params.id, {
+            title,
+            body,
+        });
+        if (!post) {
+            return res.status(404);
+        }
+        res.status(200).json({ 
+            message: "Post updated" 
+        });
+    } catch (err) {
+        next(err);
+    }
+};
 
 exports.delete_post = function(req, res, next) {
     return res.json('Received a DELETE HTTP method');

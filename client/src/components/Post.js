@@ -3,7 +3,7 @@ import { useRouteMatch, Link } from "react-router-dom";
 
 const Post = ({ content }) => {
 
-  let match = useRouteMatch();
+  let match = useRouteMatch("/posts/");
 
   const date = new Date(content.timestamp);
   const date_formatted = date.toLocaleDateString("en-gb", {
@@ -21,7 +21,7 @@ const Post = ({ content }) => {
                 <h2 class="text-gray-800 text-3xl font-semibold">{content.title}</h2>
                 <div class="flex mt-4 items-center justify-between">
                     <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-8 rounded focus:outline-none focus:shadow-outline" type="submit">
-                        <Link to={`${match.url}/${content._id}`}>Edit Post</Link>
+                        <Link to={`/posts/${content._id}`}>Edit Post</Link>
                     </button>
                     <a href="#" class="text-base font-medium text-blue-700">{date_formatted}</a>
                 </div>
