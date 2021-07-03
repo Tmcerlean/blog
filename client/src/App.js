@@ -9,10 +9,11 @@ import * as ROUTES from './constants/routes';
 import ProtectedRoute from './helpers/ProtectedRoute';
 
 const Admin = lazy(() => import('./screens/Admin'));
+const AdminEditPost = lazy(() => import('./screens/AdminEditPost'));
+const AdminNewPost = lazy(() => import('./screens/AdminNewPost'));
 const Home = lazy(() => import('./screens/Home'));
 const Login = lazy(() => import('./screens/Login'));
 const NotFound = lazy(() => import('./screens/NotFound'));
-const EditPost = lazy(() => import('./screens/EditPost'));
 const Signup = lazy(() => import('./screens/Signup'));
 
 const App = () => {
@@ -33,8 +34,11 @@ const App = () => {
           <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN} exact>
             <Admin />
           </ProtectedRoute>
-          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.POST} exact>
-            <EditPost />
+          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN_EDIT_POST} exact>
+            <AdminEditPost />
+          </ProtectedRoute>
+          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN_NEW_POST} exact>
+            <AdminNewPost />
           </ProtectedRoute>
           <Route component={NotFound} />
         </Switch>

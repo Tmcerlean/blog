@@ -84,6 +84,17 @@ exports.edit_post = async function (req, res, next) {
     }
 };
 
-exports.delete_post = function(req, res, next) {
-    return res.json('Received a DELETE HTTP method');
-}
+exports.delete_post = async function (req, res, next) {
+    try {
+        const post = await Post.findByIdAndDelete(req.params.id);
+        if (!post) {
+            return res
+                .status(404).json({ 
+                    err: `Post with id ${req.params.id} not found` 
+                });
+        }
+        res.status(200).json({ message: `Post ${req.params.id} deleted` });
+    } catch (err) {
+        next(err);
+    }
+};

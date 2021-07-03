@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import Post from "../components/Post";
+import PostListing from "../components/PostListing";
 
 const Home = () => {
 
@@ -20,24 +20,18 @@ const Home = () => {
                 return;
             }
             const reqJson = await req.json();
-            console.log(reqJson)
-            console.log(reqJson.posts)
             setPosts(reqJson.posts);
         } catch (err) {}
     };
     getPosts();
     }, []);
 
-    useEffect(() => {
-        console.log("posts", posts)
-    }, [posts])
-
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 text-center justify-items-center w-screen">
             {!posts ? (
                 <Skeleton count={8} width={300} height={300} className="m-5" />
             ) : (
-                posts.map((post) => <Post key={post._id} content={post} />)
+                posts.map((post) => <PostListing key={post._id} content={post} />)
             )}
         </div>
     )
