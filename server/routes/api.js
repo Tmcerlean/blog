@@ -18,25 +18,25 @@ router.get('/posts/:postid/comments', commentController.get_comments)
 
 // POST create comment - /api/posts/:postid/comments
 router.post('/posts/:postid/comments', [
-  passport.authenticate('jwt', {session: false}),
+  // passport.authenticate('jwt', {session: false}),
   commentController.create_comment
 ])
 
 // PUT edit comment - /api/posts/:postid/comments/:commentid
 router.put('/posts/:postid/comments/:commentid', [
-  passport.authenticate('jwt', {session: false}),
+  // passport.authenticate('jwt', {session: false}),
   commentController.edit_comment
 ])
 
 // DELETE single comment - /api/posts/:postid/comments/:commentid
 router.delete('/posts/:postid/comments/:commentid', [
-  passport.authenticate('jwt', {session: false}),
+  // passport.authenticate('jwt', {session: false}),
   commentController.delete_comment
 ])
 
 // DELETE all of single post's comments
 router.delete('/posts/:postid/comments', [
-    passport.authenticate("jwt", { session: false }),
+    // passport.authenticate("jwt", { session: false }),
     commentController.delete_comments
 ])
 

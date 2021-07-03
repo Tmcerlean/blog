@@ -14,6 +14,7 @@ const AdminNewPost = lazy(() => import('./screens/AdminNewPost'));
 const Home = lazy(() => import('./screens/Home'));
 const Login = lazy(() => import('./screens/Login'));
 const NotFound = lazy(() => import('./screens/NotFound'));
+const Post = lazy(() => import('./screens/Post'));
 const Signup = lazy(() => import('./screens/Signup'));
 
 const App = () => {
@@ -29,6 +30,7 @@ const App = () => {
         <Header userAuth={userAuth} setUserAuth={setUserAuth} />
         <Switch>
           <Route path={ROUTES.HOME} component={Home} exact />
+          <Route path={ROUTES.POST} component={Post} exact />
           <Route userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.LOGIN} component={Login} exact />
           <Route userAuth={userAuth} path={ROUTES.SIGNUP} component={Signup} exact />
           <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN} exact>

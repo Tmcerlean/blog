@@ -6,7 +6,8 @@ var CommentSchema = new Schema(
   {
     body: {type: String, required: true, minLength: 1, maxLength: 500},
     timestamp: {type: Date, default: Date.now, required: true, },
-    user: {type: Schema.Types.ObjectId, ref: 'User', required: true}
+    user: { required: true, type: String },
+    postId: { type: String, required: true }
   }
 );
 
