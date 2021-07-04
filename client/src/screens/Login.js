@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
 const Login = () => {
@@ -7,6 +7,8 @@ const Login = () => {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [loginErr, setLoginErr] = useState(false);
+
+    let history = useHistory();
     
     const isUsernameValid = username.length > 0;
     const isPasswordValid = (password !== '' && password.length > 5);
@@ -42,6 +44,7 @@ const Login = () => {
           }
           localStorage.setItem("token", myJson.token);
           localStorage.setItem("userAuth", true);
+          history.go(0)
         } catch (err) {
           console.log(err)
           setLoginErr(true);

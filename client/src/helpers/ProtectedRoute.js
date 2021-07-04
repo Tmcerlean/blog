@@ -2,7 +2,7 @@ import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
-const ProtectedRoute = ({ userAuth, setUserAuth, children, ...rest }) => {
+const ProtectedRoute = ({ userAuth, children, ...rest }) => {
 
     return (
         <Route

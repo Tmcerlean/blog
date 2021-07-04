@@ -33,13 +33,13 @@ const App = () => {
           <Route path={ROUTES.POST} component={Post} exact />
           <Route path={ROUTES.LOGIN} component={Login} exact />
           <Route path={ROUTES.SIGNUP} component={Signup} exact />
-          <ProtectedRoute path={ROUTES.ADMIN} exact>
+          <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN} exact>
             <Admin />
           </ProtectedRoute>
-          <ProtectedRoute path={ROUTES.ADMIN_EDIT_POST} exact>
+          <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN_EDIT_POST} exact>
             <AdminEditPost />
           </ProtectedRoute>
-          <ProtectedRoute path={ROUTES.ADMIN_NEW_POST} exact>
+          <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN_NEW_POST} exact>
             <AdminNewPost />
           </ProtectedRoute>
           <Route component={NotFound} />

@@ -46,7 +46,6 @@ const Post = () => {
 
                 const commentsResJson = await commentsRes.json();
                 let comments = commentsResJson.comments;
-                console.log(comments)
                 if (!comments) {
                     comments = null;
                 }
