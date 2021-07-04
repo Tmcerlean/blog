@@ -1,4 +1,4 @@
-const Comment = ({ comment }) => {
+const Comment = ({ comment, edit, deleteComment }) => {
 
   const date = new Date(comment.timestamp);
   const date_formated = date.toLocaleDateString("en-gb", {
@@ -28,6 +28,16 @@ const Comment = ({ comment }) => {
             })
           : date_formated}
       </div>
+      {edit &&
+        <div className="flex items-center">
+          <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 mt-3 rounded focus:outline-none focus:shadow-outline" 
+              type="button"
+              onClick={() => deleteComment(comment._id)}
+          >
+              Delete
+          </button>
+        </div>
+      }
     </div>
   );
 };

@@ -29,10 +29,6 @@ const Post = () => {
     });
 
     useEffect(() => {
-        console.log(currentComments)
-    }, [currentComments])
-
-    useEffect(() => {
         const getPost = async () => {
             try {
                 const req = await fetch(

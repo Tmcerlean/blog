@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, useHistory } from "react-router-dom";
+import Comment from "../components/Comment";
 
 const AdminEditPost = () => {
 
@@ -165,49 +166,57 @@ const AdminEditPost = () => {
     };
 
     return (
-        <div>
-            <form className="w-full max-w-lg" onSubmit={(e) => updatePost(e, title, body)}>
-                <div className="flex flex-wrap -mx-3 mb-6">
-                    <div className="w-full px-3 mb-6 md:mb-0">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
-                            Title
-                        </label>
-                        <input 
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
-                            type="text" 
-                            name="title"
-                            placeholder="Title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)} 
-                        />
-                        <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+        <div className="w-screen mx-auto flex flex-wrap py-6">
+            <div className="w-full mx-auto md:w-2/3 flex flex-col items-center px-3">
+                <form className="flex flex-col my-4 w-full" onSubmit={(e) => updatePost(e, title, body)}>
+                    <div className="flex flex-wrap -mx-3 mb-6">
+                        <div className="w-full px-3 mb-6 md:mb-0">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                                Title
+                            </label>
+                            <input 
+                                className="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
+                                type="text" 
+                                name="title"
+                                placeholder="Title"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)} 
+                            />
+                            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
+                        </div>
+                        <div className="w-full px-3">
+                            <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
+                                Body
+                            </label>
+                            <textarea 
+                                className="appearance-none block w-full text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                                type="text" 
+                                placeholder="Content"
+                                value={body}
+                                onChange={(e) => setBody(e.target.value)} />
+                        </div>
                     </div>
-                    <div className="w-full px-3">
-                        <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
-                            Body
-                        </label>
-                        <textarea 
-                            className="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                            type="text" 
-                            placeholder="Content"
-                            value={body}
-                            onChange={(e) => setBody(e.target.value)} />
+                    <div className="flex items-center">
+                        <button className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline ${isPostValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`} 
+                            type="submit"
+                        >
+                            Update
+                        </button>
+                        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
+                            type="button"
+                            onClick={deletePost}
+                        >
+                            Delete
+                        </button>
                     </div>
+                </form>
+                <div className="w-full">
+                    {comments &&
+                    comments.map((comment) => {
+                        return <Comment key={comment._id} comment={comment} edit={true} deleteComment={deleteComment} />;
+                    })}
                 </div>
-                <div className="flex items-center justify-between">
-                    <button className={`bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline ${isPostValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`} 
-                        type="submit"
-                    >
-                        Update
-                    </button>
-                    <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" 
-                        type="button"
-                        onClick={deletePost}
-                    >
-                        Delete
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     )
 }
