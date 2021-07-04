@@ -65,14 +65,53 @@ exports.create_comment = [
     },
 ];
 
-exports.edit_comment = function(req, res, next) {
-    return res.json('Received a PUT HTTP method');
-}
+exports.edit_comment = async function (req, res, next) {
+    try {
+        const { text, user } = req.body;
+        const comment = await Comment.findByIdAndUpdate(req.params.commentid, {
+            text,
+            user,
+        });
+        if (!comment) {
+            return res.status(404).json({ 
+                message: "Comment updated" 
+            });
+        }
+        res.status(200).json({ 
+            message: "Comment updated" 
+        });
+    } catch (err) {
+        next(err);
+    }
+};
 
-exports.delete_comment = function(req, res, next) {
-    return res.json('Received a DELETE HTTP method');
-}
+exports.delete_comment = async function (req, res, next) {
+    try {
+        const comment = await Comment.findByIdAndDelete(req.params.commentid);
+        if (!comment) {
+            return res.status(404).json({ 
+                err: `Comment with id ${req.params.id} does not exist` 
+            });
+        }
+        res.status(200).json({ 
+            msg: `Comment ${req.params.id} deleted` });
+    } catch (err) {
+        next(err);
+    }
+};
 
-exports.delete_comments = function(req, res, next) {
-    return res.json('Received a DELETE HTTP method');
-}
+exports.delete_comments = async function (req, res, next) {
+    try {
+        const comment = await Comment.deleteMany({ postId: req.params.postid });
+        if (!comment) {
+            return res.status(404).json({ 
+                err: `comment with id ${req.params.id} not found` 
+            });
+        }
+        res.status(200).json({ 
+            message: `Comment ${req.params.id} deleted` 
+        });
+    } catch (err) {
+        next(err);
+    }
+};
