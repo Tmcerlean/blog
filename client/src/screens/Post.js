@@ -98,9 +98,9 @@ const Post = () => {
         <div className="w-screen mx-auto flex flex-wrap py-6">
             <section className="w-full mx-auto md:w-2/3 flex flex-col items-center px-3">
                 <article className="flex flex-col my-4 w-full">
-                    <div className="flex flex-col items-center justify-start p-6">
-                        <h1 className="text-gray-800 text-2xl font-bold pb-3 text-center">{post.title}</h1>
-                        <p>{post.body}</p>
+                    <div className="flex flex-col items-center justify-start">
+                        <h1 className="text-gray-800 text-2xl font-bold pb-3 text-center break-all">{post.title}</h1>
+                        <p className="break-all">{post.body}</p>
                     </div>
                     <h2 className="text-gray-800 text-md font-bold pb-3 mt-4 text-center">Comments:</h2>
                 </article>

@@ -49,38 +49,36 @@ const Login = ({setUserAuth}) => {
     }
 
     return (
-        <div className="bg-gray-100">
-            <div className="container h-screen mx-auto flex flex-col flex-wrap">
-                <div className="container border rounded m-auto w-1/4 flex flex-wrap justify-center bg-white shadow-new">
-                    <h1 className="text-3xl m-4">Blog.</h1>
-                    <form className="flex flex-wrap justify-center" onSubmit={(e) => logIn(e, username, password)}>
-                        <input 
-                            className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none" 
-                            name="username"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input 
-                            className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none" 
-                            name="password"
-                            placeholder="Password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <button 
-                            className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isLoginValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
-                            type="submit"
-                        >Log In</button>
-                        <div className="mb-4">
-                            <p>Don't have an account? <Link to={ROUTES.SIGNUP} className="font-medium text-blue-500 cursor-pointer">Sign up</Link></p>
-                        </div>
-                        {loginErr && <p className="text-xs text-red-600">Error with login information</p>}
-                    </form>
-                </div>
-            </div>    
-        </div>
+      <div className="my-24 container w-full mx-auto flex flex-col flex-wrap">
+          <div className="container shadow-md rounded m-auto w-4/5 md:w-1/2 flex flex-wrap justify-center bg-white shadow-new">
+              <h1 className="text-3xl font-bold m-4">Blog.</h1>
+              <form className="flex flex-wrap justify-center" onSubmit={(e) => logIn(e, username, password)}>
+                  <input 
+                      className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none" 
+                      name="username"
+                      placeholder="Username"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                  />
+                  <input 
+                      className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none" 
+                      name="password"
+                      placeholder="Password"
+                      type="password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <button 
+                      className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isLoginValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
+                      type="submit"
+                  >Log In</button>
+                  <div className="mb-4">
+                      <p>Don't have an account? <Link to={ROUTES.SIGNUP} className="font-medium text-blue-500 cursor-pointer">Sign up</Link></p>
+                  </div>
+                  {loginErr && <p className="text-xs text-red-600">Error with login information</p>}
+              </form>
+          </div>
+      </div>    
     )
 
 }

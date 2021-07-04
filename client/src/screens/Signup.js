@@ -52,44 +52,42 @@ const Signup = ({setUserAuth}) => {
     }
 
     return (
-        <div className="bg-gray-100">
-            <div className="container mx-auto flex flex-col flex-wrap h-screen">
-                <div className="container border rounded m-auto w-1/4 flex flex-wrap justify-center bg-white shadow-new">
-                    <h1 className="text-3xl m-4">Blog.</h1>
-                    <form className="flex flex-wrap justify-center" onSubmit={(e) => signUp(e, username, password)}>
-                        <input 
-                            className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none"
-                            name="username"
-                            placeholder="Username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                        <input 
-                            className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none"
-                            name="password"
-                            placeholder="Password"
-                            type="password"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                        />
-                        <input 
-                            className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none"
-                            name="password-confirmation"
-                            placeholder="Confirm Password"
-                            type="password"
-                            value={passwordConfirmation}
-                            onChange={(e) => setPasswordConfirmation(e.target.value)}
-                        />
-                        <button 
-                            className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isSignupValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
-                            type="submit"
-                        >Register</button>
-                        <div className="mb-4">
-                            <p>Have an account? <Link to={ROUTES.LOGIN} className="font-medium text-blue-500 cursor-pointer">Log in</Link></p>
-                        </div>
-                        {signupErr && <p className="text-xs text-red-600">Error with signup information</p>}
-                    </form>
-                </div>
+        <div className="my-24 container w-full mx-auto flex flex-col flex-wrap">
+            <div className="container shadow-md rounded m-auto w-4/5 md:w-1/2 flex flex-wrap justify-center bg-white shadow-new">
+                <h1 className="text-3xl font-bold m-4">Blog.</h1>
+                <form className="flex flex-wrap justify-center" onSubmit={(e) => signUp(e, username, password)}>
+                    <input 
+                        className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none"
+                        name="username"
+                        placeholder="Username"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                    />
+                    <input 
+                        className="border rounded w-9/12 p-1 mb-2 pl-2 bg-gray-100 outline-none"
+                        name="password"
+                        placeholder="Password"
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input 
+                        className="border rounded w-9/12 p-1 mb-4 pl-2 bg-gray-100 outline-none"
+                        name="password-confirmation"
+                        placeholder="Confirm Password"
+                        type="password"
+                        value={passwordConfirmation}
+                        onChange={(e) => setPasswordConfirmation(e.target.value)}
+                    />
+                    <button 
+                        className={`border rounded w-9/12 p-1 mb-4 bg-blue-400 text-white font-medium ${isSignupValid ? "cursor-pointer" : "bg-opacity-50 cursor-default"}`}
+                        type="submit"
+                    >Register</button>
+                    <div className="mb-4">
+                        <p>Have an account? <Link to={ROUTES.LOGIN} className="font-medium text-blue-500 cursor-pointer">Log in</Link></p>
+                    </div>
+                    {signupErr && <p className="text-xs text-red-600">Error with signup information</p>}
+                </form>
             </div>
         </div>
     )
