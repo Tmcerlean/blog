@@ -5,7 +5,7 @@ const passport = require("passport");
 const bcrypt = require("bcryptjs");
 
 exports.login_post = (req, res, next) => {
-    passport.authenticate('local', { session: false }, (err, user, info) => {
+    passport.authenticate('local', { session: false, successRedirect: '/', failureRedirect: '/bla' }, (err, user, info) => {
         if (err || !user) {
             return res.status(400).json({ 
                 message: 'Something went wrong',

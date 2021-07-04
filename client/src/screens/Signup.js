@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import * as ROUTES from '../constants/routes';
 
-const Signup = ({setUserAuth}) => {
+const Signup = () => {
 
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
@@ -45,7 +45,6 @@ const Signup = ({setUserAuth}) => {
           }
           localStorage.setItem("token", myJson.token);
           localStorage.setItem("userAuth", true);
-          setUserAuth(true);
         } catch (err) {
           setSignupErr(true);
         }

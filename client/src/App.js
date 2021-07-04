@@ -27,19 +27,19 @@ const App = () => {
   return (
     <Router>
       <Suspense fallback={<p>Loading ...</p>}>
-        <Header userAuth={userAuth} setUserAuth={setUserAuth} />
+        <Header userAuth={userAuth} />
         <Switch>
           <Route path={ROUTES.HOME} component={Home} exact />
           <Route path={ROUTES.POST} component={Post} exact />
-          <Route userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.LOGIN} component={Login} exact />
-          <Route userAuth={userAuth} path={ROUTES.SIGNUP} component={Signup} exact />
-          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN} exact>
+          <Route path={ROUTES.LOGIN} component={Login} exact />
+          <Route path={ROUTES.SIGNUP} component={Signup} exact />
+          <ProtectedRoute path={ROUTES.ADMIN} exact>
             <Admin />
           </ProtectedRoute>
-          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN_EDIT_POST} exact>
+          <ProtectedRoute path={ROUTES.ADMIN_EDIT_POST} exact>
             <AdminEditPost />
           </ProtectedRoute>
-          <ProtectedRoute userAuth={userAuth} setUserAuth={setUserAuth} path={ROUTES.ADMIN_NEW_POST} exact>
+          <ProtectedRoute path={ROUTES.ADMIN_NEW_POST} exact>
             <AdminNewPost />
           </ProtectedRoute>
           <Route component={NotFound} />

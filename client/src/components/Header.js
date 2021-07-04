@@ -1,15 +1,17 @@
 import { useEffect, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import * as ROUTES from "../constants/routes";
 
-const Header = ({ userAuth, setUserAuth }) => {
+const Header = ({ userAuth }) => {
 
     const [adminPage, setAdminPage] = useState(false);
     const [loginPage, setLoginPage] = useState(false);
 
+    let history = useHistory();
+
     const logout = () => {
-        console.log(typeof(setUserAuth))
         localStorage.clear();
+        history.go(0)
     };
 
     let location = useLocation();
