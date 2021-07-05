@@ -39,6 +39,9 @@ const Header = ({ userAuth }) => {
             </div>
             {userAuth && (
             <div className="flex">
+                <button className="flex items-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline">
+                    <Link to={ROUTES.ADMIN_NEW_POST}>New Post</Link>
+                </button>
                 {!adminPage &&
                 <button className="flex items-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 mr-2 rounded focus:outline-none focus:shadow-outline">
                     <Link to={ROUTES.ADMIN}>Admin</Link>

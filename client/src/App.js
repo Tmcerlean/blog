@@ -36,11 +36,11 @@ const App = () => {
           <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN} exact>
             <Admin />
           </ProtectedRoute>
-          <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN_EDIT_POST} exact>
-            <AdminEditPost />
-          </ProtectedRoute>
           <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN_NEW_POST} exact>
             <AdminNewPost />
+          </ProtectedRoute>
+          <ProtectedRoute userAuth={userAuth} path={ROUTES.ADMIN_EDIT_POST} exact>
+            <AdminEditPost />
           </ProtectedRoute>
           <Route component={NotFound} />
         </Switch>

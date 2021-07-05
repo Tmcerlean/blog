@@ -175,14 +175,13 @@ const AdminEditPost = () => {
                                 Title
                             </label>
                             <input 
-                                className="appearance-none block w-full text-gray-700 border border-red-500 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
+                                className="appearance-none block w-full text-gray-700 border rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" 
                                 type="text" 
                                 name="title"
                                 placeholder="Title"
                                 value={title}
                                 onChange={(e) => setTitle(e.target.value)} 
                             />
-                            <p className="text-red-500 text-xs italic">Please fill out this field.</p>
                         </div>
                         <div className="w-full px-3">
                             <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">

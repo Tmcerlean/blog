@@ -78,6 +78,7 @@ const Login = () => {
                   <div className="mb-4">
                       <p>Don't have an account? <Link to={ROUTES.SIGNUP} className="font-medium text-blue-500 cursor-pointer">Sign up</Link></p>
                   </div>
+                  <br />
                   {loginErr && <p className="text-xs text-red-600">Error with login information</p>}
               </form>
           </div>
